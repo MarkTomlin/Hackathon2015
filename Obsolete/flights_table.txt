@@ -1,0 +1,18 @@
+CREATE TABLE Flights 
+(
+	F_Id int NOT NULL, 
+	From varchar(255),
+	Dest_count varchar(255),
+	Dest_city varchar(255),
+	Airline varchar(255),
+	Price int,
+	Date_Out date,
+	Date_Ret date,
+	Start_Time time,
+	Duration time,
+	Stops int, 
+	PRIMARY KEY (F_Id)
+)
+
+INSERT INTO Flights (From, Dest_count, Dest_city, Airline, Price, Date, Date_Ret, Start_Time, Duration, Stops)
+VALUES ('Southampton','Czech Republic','Prague','CSA, FlyBE','359','2015-02-26','2015-03-04','07:15:00','01:20:00','1');

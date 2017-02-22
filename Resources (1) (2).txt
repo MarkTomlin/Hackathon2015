@@ -1,0 +1,31 @@
+http://support.wan.travel/hc/en-us/articles/200191669
+
+http://stackoverflow.com/questions/10680408/is-there-any-api-for-getting-flight-fare
+
+http://developer.ean.com/
+
+
+Google Flight API:
+
+https://developers.google.com/qpx-express/
+
+Places:
+http://www.businessinsider.com/tripadvisors-most-popular-travel-destinations-2014-4?op=1&IR=T
+
+
+$conn = new PDO("mysql:host=edward2.solent.ac.uk;dbname=dspokes;","dspokes","shaetuvo");
+
+http://edward2.solent.ac.uk/~dspokes/Hackathon2015/
+.
+
+
+
+https://forum.jquery.com/topic/page-containing-other-javascript-hangs-unless-navigated-to-directly
+
+http://stackoverflow.com/questions/6985507/one-time-page-refresh-after-first-page-load
+
+
+
+jQuery(document).on("mobileinit", function() {
+    jQuery.mobile.autoInitializePage = false;
+});

@@ -1,0 +1,9 @@
+function home()
+{
+	window.location.replace("http://edward2.solent.ac.uk/~dspokes/Hackathon2015/");
+}
+
+function info()
+{
+	window.location.replace("http://edward2.solent.ac.uk/~dspokes/Hackathon2015/results.php?destination='Australia");
+}

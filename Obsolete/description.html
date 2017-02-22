@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Description</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="js/jquery.min.js"></script>
+ <script src="https://maps.googleapis.com/maps/api/js"></script>
+ <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript">
+
+
+var geocoder;
+var markers = [];
+var maps = [0,0,0]; 
+function initialize(canvasname ,mapIndex) {
+	
+	//createa and initilise geo coder 
+	geocoder = new google.maps.Geocoder();
+	
+	//set map options 
+  var mapOptions = {
+    zoom: 6
+  };
+  //create the map 
+  maps[mapIndex] = new google.maps.Map(document.getElementById(canvasname),
+      mapOptions);
+
+  // Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      var infowindow = new google.maps.InfoWindow({
+        map: maps[mapIndex],
+        position: pos,
+        content: 'Location found using HTML5.'
+      });
+
+      maps[mapIndex].setCenter(pos);
+	  
+	  placeMarker( pos , "France Hotel" ,"<div>Best place to go to</div>",maps[mapIndex]); 
+	  
+	  
+	  
+	  
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+  
+  
+  // add more listners 
+
+}
+//
+
+function placeMarker(location , title ,description, map) {
+	
+	// info window to show when a marker is selected 
+	var infowindow = new google.maps.InfoWindow({
+      content: description
+  });
+
+ //create the marker
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+	  title:title
+  });
+  //listen to mark clikced event , so we show the info  
+ google.maps.event.addListener(marker, 'click', function() {
+	 //open the marker details using the info window 
+    infowindow.open(map,marker);
+  });
+  //map.setCenter(location);
+  markers.push(marker);
+  
+}
+var pages =Array();
+var page = 2; 
+pages.push("#pagecontent");
+pages.push("#pagecontent2"); 
+pages.push("#pagecontent3");  
+
+
+ 
+function onSlide()
+{
+	page++; 
+	if(page > 2)
+	{
+	page =0; 
+	}
+	
+ var width = $( "#content" ).width();
+	 
+	
+	for(var p = 0; p<3 ; p++)
+	 $( pages[p] ).animate({ "left": "+="+width+"px" }, "slow", function(){
+		 
+		 for(var j = 0; j<3;j++)
+		if($(pages[j]).position().left>width)
+		{
+		 $( pages[j] ).css("left" , "-"+width+"px"); 
+		//initialize(canvases[page]);
+		 
+		}
+		 
+	 });
+}
+
+function onSlideLeft()
+{
+	page--; 
+	if(page < 0 )
+	{
+	page =2; 
+	}
+	
+
+	 var width = $( "#content" ).width();
+	
+	for(var p = 0; p<3 ; p++)
+	 $( pages[p] ).animate({ "left": "-="+width+"px" }, "slow", function(){
+		 
+		 for(var j = 0; j<3;j++)
+		if($(pages[j]).position().left<-width)
+		{
+		 $( pages[j] ).css("left" , ""+width+"px"); 
+		
+		 
+		}
+		 
+	 });
+}
+
+
+$(function(){
+  // Bind the swipeleftHandler callback function to the swipe event on div.box
+  $( "#content" ).on( "swipeleft", function(e){
+	  
+	  onSlideLeft();
+  });
+ 
+
+});
+$(function(){
+  // Bind the swipeleftHandler callback function to the swipe event on div.box
+  $( "#content" ).on( "swiperight", function(e){
+	  
+	  onSlide();
+  });
+ 
+
+});
+
+
+function init()
+{
+	initialize('map-canvas',0);
+	initialize('map-canvas2',1);
+	initialize('map-canvas3',2);
+}
+</script>
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onLoad="init()">
+<div id="content">
+<h1>Travel App</h1>
+<div id="pagecontent">
+<h2>Description</h2>
+
+ <div id="map-canvas"></div>
+ <div id="descript-content">
+ <!--content changed-->
+ <a href="" > View Customs/Legal </a>
+ </div>
+
+ 
+ </div>
+ 
+ <!-- content 2 -->
+ <div id="pagecontent2">
+<h2>Hotel Prices</h2>
+
+ <div id="map-canvas2"></div>
+ <div id="descript-content2">
+ <!--content changed-->
+ <table>
+ <tr>
+ <th>Name of Hotel</th>
+ <th>Hotel Price</th>
+ </tr>
+  <tr>
+ <td>Paris  Hotel</td>
+ <td>$5005</td>
+ </tr>
+ 
+  <tr>
+ <td>Some Hotel</td>
+ <td>$405</td>
+ </tr>
+ </table>
+ </div>
+ </div>
+ <!-- content 2 -->
+ <div id="pagecontent3">
+<h2>Flight Prices</h2>
+
+ <div id="map-canvas3"></div>
+ <div id="descript-content3">
+ <!--content changed-->
+<table>
+ <tr>
+ <th>From</th>
+ <th>To</th>
+  <th>Price</th>
+ </tr>
+  <tr>
+ <td>Paris  </td>
+ <td>London</td>
+ <td>$5005</td>
+ </tr>
+ 
+  <tr>
+ <td>Some Where</td>
+ <td>Paris</td>
+ <td>$405</td>
+ </tr>
+ </table>
+ </div>
+
+ 
+ </div>
+ </div>
+ <input type="button" value="next page" onClick="onSlide()" style="top:700px; position:absolute"/>
+ <input type="button" value="prev page" onClick="onSlideLeft()" style="top:700px; left:60px;  position:absolute"/>
+
+</body>
+</html>

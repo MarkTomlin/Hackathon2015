@@ -1,0 +1,100 @@
+
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="bluebootstrap.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<!-- amMap library -->
+		<script src="ammap/ammap.js" type="text/javascript"></script>
+		<script src="ammap/maps/js/worldLow.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="http://www.dreamlineworld.com/map/ammap/ammap.css" type="text/css">
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+		<title>Travel the world on a student budget!</title>
+		<script type="text/javascript">
+		    var datefield=document.createElement("input")
+		    datefield.setAttribute("type", "date")
+		    if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+		        document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+		        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+		        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
+		    }
+		</script>
+		<script>
+		if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+		    jQuery(function($){ //on document.ready
+		        $('#departure').datepicker();
+				$('#duration').datepicker();
+		    })
+		}
+		</script>
+		<script src="amMapScript.js" type="text/javascript"></script>
+		<script>$(document).bind("mobileinit", function(){$.mobile.ajaxEnabled = false;});</script>
+	</head>
+
+	<body>
+		<div class="container">
+		<h1>Travel App</h1>
+		<div id="mapdiv" style="width: 750px; height: 500px;"></div>
+		<form role="form" id="travelsearchform" action="results.php" method="get">
+			<div class="form-group">
+			Budget <br />
+			<input name="budget" class="form-control" placeholder="£1000" autofocus/><br />
+			</div>
+			<div class="form-group">
+			Enter destination <br />
+			<input name="destination" class="form-control" placeholder="Leave blank for a random destination!" /><br />
+			<!--Rickroll any destination not in the database!-->
+			</div>
+			<div class="form-group">
+			<select name="airport" class="form-control">
+				<option value="blank">---Any Airport---</option>
+				<option value="heathrow">London Heathrow</option>
+				<option value="gatwick">London Gatwick</option>
+				<option value="machester">Manchester</option>
+				<option value="stansted">London Stansted</option>
+				<option value="edinburgh">Edinburgh</option>
+				<option value="luton">London Luton</option>
+				<option value="southampton">Southampton</option>
+				<option value="birmingham">Birmingham</option>
+				<option value="glasgow">Glasgow</option>
+				<option value="bristol">Bristol</option>
+				<option value="newcastle">Newcastle</option>
+				<option value="eastmidlands">East Midlands International</option>
+				<option value="johnlennon">Liverpool John Lennon</option>
+				<option value="belfast">Belfast International</option>
+				<option value="aberdeen">Aberdeen</option>
+			</select><br />
+			</div>
+			<div class="form-group">
+			<select name="packagedetail" class="form-control">
+				<option value="hotelandflight">Hotel &amp; Flights</option>
+				<option value="hotelonly">Hotel Only</option>
+				<option value="flightsonly">Flights Only</option>
+			</select><br />
+			</div>
+			<div class="form-group">
+			Departure date <br />
+			<input type="date" class="form-control" id="departure" name="departure" size="20" /><br />
+			</div>
+			<div class="form-group">
+			Return date<br />
+			<input type="date" class="form-control" id="duration" name="duration" size="20" /><br />
+			</div>
+			<div class="form-group">
+			<input type="submit" value="Search" class="form-control" />
+			</div>
+			
+		</form>
+		</div>
+	</body>
+</html> 
